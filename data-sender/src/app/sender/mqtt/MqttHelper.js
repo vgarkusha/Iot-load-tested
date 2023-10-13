@@ -42,11 +42,11 @@ class MqttHelper extends CommonSender {
      * @returns {*}
      */
     async getClientConnection(target, connectionMapKey) {
-
         logger.debug(`>>> Opening mqtt connection to target: ${JSON.stringify(target)}`);
 
         let options = await this.getSecurityData(target.security);
         options.rejectUnauthorized = false;
+        options.clientId=options.username+"-client-id"
         let mqttUrl = this.getMqttUrl(target, options);
 
         return new Promise((resolve, reject) => {

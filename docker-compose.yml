@@ -33,7 +33,7 @@ services:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}
     ports:
-      - 5672:5672 
+      - 5672:5672
       - 15671:15671
       - 15672:15672
       - 61613:61613
@@ -45,7 +45,7 @@ services:
       - mongodb
       - minio
       - rabbitmq
-      - data-sender  
+      - data-sender
     environment:
       - JAVA_OPTS=-Xmx3500m
       - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/admin
@@ -89,7 +89,6 @@ services:
       - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672
       - AWS_IOT_SERVICE=iotdata
       #- DATA_SENDER_DEBUG_MODE=true
-     
 volumes:
   mongodb-data:
   minio-data:
