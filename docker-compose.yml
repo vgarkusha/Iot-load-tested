@@ -1,7 +1,8 @@
 version: '3'
 services:
   mongodb:
-    image: mongo:3.5
+    platform: linux/amd64
+    image: mongo:4.4.25
     container_name: iot-ds-mongodb
     volumes:
       - mongodb-data:/data/db
@@ -12,6 +13,7 @@ services:
     ports:
       - 27017:27017
   minio:
+    platform: linux/amd64
     image: minio/minio
     container_name: iot-ds-minio
     volumes:
@@ -24,8 +26,8 @@ services:
       - 9000:9000
     command: ["server", "/data"]
   rabbitmq:
+    platform: linux/amd64
     build: ./rabbitmq
-    image: ibagroup/iot-data-simulator-rabbitmq:0.1
     container_name: iot-ds-rabbitmq
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
@@ -39,7 +41,6 @@ services:
       - 61613:61613
   services:
     build: ./services
-    image: ibagroup/iot-data-simulator-services:1.1.0
     container_name: iot-ds-services
     depends_on:
       - mongodb
@@ -59,12 +60,11 @@ services:
       - RABBITMQ_PASS=${RABBITMQ_PASS}
       - SKIP_RULE_PROCESSING_FOR_EMPTY_DATASET_PROPERTY=true
       - SKIP_EMPTY_GENERATED_VALUES=true
-      - IMPORT_DEMO_SESSION=true 
+      - IMPORT_DEMO_SESSION=true
     ports:
       - 8083:8083
   ui:
     build: ./ui
-    image: ibagroup/iot-data-simulator-ui:1.1.0
     container_name: iot-ds-ui
     depends_on:
       - services
@@ -79,7 +79,6 @@ services:
     command: ["npm", "start"]
   data-sender:
     build: ./data-sender
-    image: ibagroup/iot-data-simulator-sender:1.1.0
     container_name: iot-ds-data-sender
     depends_on:
       - rabbitmq

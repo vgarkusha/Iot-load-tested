@@ -46,7 +46,7 @@ class MqttHelper extends CommonSender {
 
         let options = await this.getSecurityData(target.security);
         options.rejectUnauthorized = false;
-        options.clientId=options.username+"-client-id"
+        options.clientId = options.username + "-client-id";
         let mqttUrl = this.getMqttUrl(target, options);
 
         return new Promise((resolve, reject) => {
@@ -86,7 +86,7 @@ class MqttHelper extends CommonSender {
      * @param options
      */
     getMqttUrl(target, options) {
-        
+
         if (options.url) {
             return options.url
         }
